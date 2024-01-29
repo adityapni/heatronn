@@ -22,7 +22,10 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-def minSdkVersion = localProperties.getProperty("flutter.minSdkVersion").toInteger()
+def minSdkVersion = localProperties.getProperty("flutter.minSdkVersion")
+if(minSdkVersion == null) {
+    minSdkVersion = 21
+}
 
 android {
     namespace "com.pendar.heatronn"
