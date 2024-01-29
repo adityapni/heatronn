@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:heatronn/repo/repo.dart';
+import 'package:heatronn/verification.dart';
+
 
 class RequestAccessCodeScreen extends StatelessWidget {
-  const RequestAccessCodeScreen({super.key});
+  RequestAccessCodeScreen({super.key});
+  final Controller controller = Get.find<Controller>();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
+    TextEditingController emailController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset('images/logo.png'),
@@ -22,13 +27,25 @@ class RequestAccessCodeScreen extends StatelessWidget {
               decoration: const InputDecoration(
                 labelText: 'Email...'
               ),
-              controller: controller,
+              controller: emailController,
             ),
             const SizedBox(height: 20,),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+                  controller.requestActivation(email: emailController.text)
+                  .then((userFriendlyMessage){
+                    if(controller.requestActivationResponse.value != null){
+                      if(controller.requestActivationResponse.value!.error !=null){
+                        SnackBar snackBar = SnackBar(content: Text(userFriendlyMessage??'Something is wrong'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationScreen()));
+                      }
+                    }
+                  });
+                },
                 child: const Text('Next'),
               ),
             )

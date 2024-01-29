@@ -34,13 +34,17 @@ class VerificationScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(onPressed: (){
-                controller.activate( activationCode: activationCodeController.text);
-                if(controller.activateResponse.value?.error!=null){
-                  SnackBar snackBar = SnackBar(content: Text(controller.activateResponse.value!.error!));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                } else {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CreateUserScreen()));
-                }
+                controller.activate( activationCode: activationCodeController.text)
+                .then((value){
+                  if(controller.activateResponse.value != null){
+                    if(controller.activateResponse.value!.error !=null){
+                      SnackBar snackBar = SnackBar(content: Text(controller.activateResponse.value!.error!.message));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CreateUserScreen()));
+                    }
+                  }
+                });
               }, child: const Text('Next')),
             )
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:heatronn/registered_user_login.dart';
 import 'package:heatronn/repo/repo.dart';
 import 'package:heatronn/request_access_code.dart';
 import 'package:heatronn/signup.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white, // foreground (text) color
           ),
         ),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Heatron'),
@@ -46,39 +47,42 @@ class _MyHomePageState extends State<MyHomePage> {
   final controller = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Image.asset('images/logoWithName.png'),
-              const Text(
-                'There is no account available. Use the signup button to first create an account',
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
-                }, child: const Text('New User/ Sign Up'))
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>RequestAccessCodeScreen()));
-                }, child: const Text('Already User/ Request Access'))
-              )
-            ],
+
+    return Obx(
+        ()=> controller.password.value.isEmpty?Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Image.asset('images/logoWithName.png'),
+                const Text(
+                  'There is no account available. Use the signup button to first create an account',
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
+                  }, child: const Text('New User/ Sign Up'))
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RequestAccessCodeScreen()));
+                  }, child: const Text('Already User/ Request Access'))
+                )
+              ],
+            ),
           ),
         ),
-      ),
+      ):RegisteredUserLogin(),
     );
   }
 }

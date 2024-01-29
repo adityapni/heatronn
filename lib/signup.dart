@@ -63,13 +63,18 @@ class SignUpScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(onPressed: (){
-                controller.signUp(email: emailController.text, firstName: firstNameController.text, lastName: lastNameController.text);
-                if(controller.signUpResponse.value?.error !=null){
-                  SnackBar snackBar = SnackBar(content: Text(controller.signUpResponse.value!.error!));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                } else {
+                controller.signUp(email: emailController.text, firstName: firstNameController.text, lastName: lastNameController.text)
+                .then((userFriendlyMessage){
+                if(controller.signUpResponse.value !=null){
+                  if(controller.signUpResponse.value!.error !=null){
+                    SnackBar snackBar = SnackBar(content: Text(userFriendlyMessage??'Something is wrong'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } else {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationScreen()));
+                  }
                 }
+                });
+
               }, child: const Text('Next'))
             )
           ],

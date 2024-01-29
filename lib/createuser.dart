@@ -42,7 +42,10 @@ class CreateUserScreen extends StatelessWidget {
               child: ElevatedButton(onPressed: (){
                 if(passwordController.text == repeatPassController.text){
                   controller.savePassword(password: passwordController.text);
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const Congratulations()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const Congratulations(
+                    title: 'Signup',
+                    message: 'Congratulations, registration was successful',
+                  )));
                 } else {
                   SnackBar snackBar = const SnackBar(content: Text('Wrong password. Please re enter your password'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);

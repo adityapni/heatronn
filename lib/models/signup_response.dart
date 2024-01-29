@@ -1,3 +1,4 @@
+import 'error.dart';
 class SignUpResponse {
   SignUpResponse({
     required this.status,
@@ -6,12 +7,12 @@ class SignUpResponse {
   });
   late final String status;
   late final Result? result;
-  late final String? error;
+  late final Error? error;
 
   SignUpResponse.fromJson(Map<String, dynamic> json){
     status = json['status'];
-    error = json['error'];
-    result = Result.fromJson(json['result']);
+    error = json['error']!=null?Error.fromJson(json['error']):null;
+    result = json['result']!=null?Result.fromJson(json['result']):null;
   }
 
   Map<String, dynamic> toJson() {

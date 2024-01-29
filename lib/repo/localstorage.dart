@@ -12,7 +12,36 @@ class LocalStorage{
     box.write('access_token', accessToken);
   }
 
+  String loadAccessToken(){
+    return box.read('access_token');
+  }
+
   savePassword({required String password}){
     box.write('password', password);
+  }
+
+  String? readPassword(){
+    return box.read('password');
+  }
+
+  savePairToken({required String pairToken}){
+    box.write('pair_token',pairToken);
+  }
+
+  String loadPairToken(){
+    return box.read('pair_token');
+  }
+
+  saveLocalCredential({required String ssid, required String key}){
+    box.write('local_ssid',ssid);
+    box.write('local_key', key);
+  }
+
+  String? loadLocalSsid(){
+    return box.read('local_ssid');
+  }
+
+  String? loadLocalKey(){
+    return box.read('local_key');
   }
 }

@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 
 class Congratulations extends StatelessWidget {
-  const Congratulations({super.key});
+  const Congratulations({super.key,
+    required this.message,
+    required this.title
+  });
+  final String message;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset('images/logo.png'),
-        title: const Text('Signup'),
+        title: Text(title),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Text('Congratulations, registration was successful'),
+            Text(message),
             const Spacer(),
             SizedBox(
               width: double.infinity,

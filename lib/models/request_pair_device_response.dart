@@ -1,24 +1,23 @@
 import 'error.dart';
-class ActivateResponse {
-  ActivateResponse({
+class RequestPairDeviceResponse {
+  RequestPairDeviceResponse({
     required this.status,
-    this.error,
     this.result,
+    this.error
   });
   late final String status;
-  late final Error? error;
   late final Result? result;
+  late final Error? error;
 
-  ActivateResponse.fromJson(Map<String, dynamic> json){
+  RequestPairDeviceResponse.fromJson(Map<String, dynamic> json){
     status = json['status'];
-    error = json['error']!=null?Error.fromJson(json['error']):null;
     result = json['result']!=null?Result.fromJson(json['result']):null;
+    error = json['error']!=null?Error.fromJson(json['error']):null;
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;
-    _data['error'] = error;
     _data['result'] = result?.toJson();
     return _data;
   }
@@ -26,21 +25,17 @@ class ActivateResponse {
 
 class Result {
   Result({
-    required this.accessToken,
-    required this.account,
+    required this.pairToken,
   });
-  late final String accessToken;
-  late final String account;
+  late final String pairToken;
 
   Result.fromJson(Map<String, dynamic> json){
-    accessToken = json['access_token'];
-    account = json['account'];
+    pairToken = json['pair_token'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['access_token'] = accessToken;
-    _data['account'] = account;
+    _data['pair_token'] = pairToken;
     return _data;
   }
 }
